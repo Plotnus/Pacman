@@ -43,7 +43,7 @@ int main(void) {
     /* 1) set the display_PxBuffer to all black */
     memset(display_PxBuffer->data,0x00,display_PxBuffer->size);
     /* 2) set the game_PxBuffer */
-    memset(game_PxBuffer->data,0b00111111,game_PxBuffer->size);
+    memset(game_PxBuffer->data,0b11000000,game_PxBuffer->size);
     
     {/* 3) set the display_PxBuffer based on the displayPxBuffer */
         struct RGB8  *gpx = game_PxBuffer->data;
@@ -72,7 +72,7 @@ int main(void) {
                     struct RGBA32 *to = to_row + (icol * scale);
 
                     to->data = 0;
-                    to->a = 0xFF;
+                    to->a = 0x00;
                     to->r += 0x21 & ~(from->r_l - 1);
                     to->r += 0x47 & ~(from->r_m - 1);
                     to->r += 0x97 & ~(from->r_h - 1);
