@@ -11,3 +11,6 @@ We add these one at a time. What we currently have is 3 with a quick hack for 2.
 We'll want to clean this up in the process, and maybe include something for 1.
 
 
+Notice that the colors aren't correct. We'll address this in the next section when we dive into endianess.
+
+
