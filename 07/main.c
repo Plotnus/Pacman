@@ -12,7 +12,7 @@
 
 /* our headers */
 #include "pxbuffer.h" /* for PxBuffer */
-
+#include "rom-colors.h"
 
 int main(void) {
 
@@ -38,12 +38,18 @@ int main(void) {
     // allocate our buffers
     struct PxBuffer8  *game_PxBuffer    = PxBuffer8_Alloc(244,288);
     struct PxBuffer32 *display_PxBuffer = PxBuffer32_Alloc(fb_var_info.xres_virtual, fb_var_info.yres_virtual);
-
-    // test code
-    /* 1) set the display_PxBuffer to all black */
     memset(display_PxBuffer->data,0x00,display_PxBuffer->size);
-    /* 2) set the game_PxBuffer */
-    memset(game_PxBuffer->data,0b11000000,game_PxBuffer->size);
+    
+
+    // raster the game buffer
+    { // lets paint it by row
+        uint32_t n = game_PxBuffer->size/ncolors;
+        void* s = (void *) game_PxBuffer->data;
+        for (int i=0; i<ncolors; ++i){
+            memset(s ,colors[i], n);
+            s += n;
+        }
+    }
     
     {/* 3) set the display_PxBuffer based on the displayPxBuffer */
         struct RGB8  *gpx = game_PxBuffer->data;
