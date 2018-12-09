@@ -46,4 +46,5 @@ Notice anything different from the previous output for the ls command?
 
 
 Keep in mind we could of been fine just running the two commands we set up in the makefile.
-Using a makefile can make our lives easier & that's why we use them.
+As a project grows a makefile can make our lives easier, save typing, and be a source of documentation.
+As projects grow even larger they can save compilation time. These are some of the reasons we use them.
