@@ -14,25 +14,26 @@ So, how can we map this memory?
 This is where "sys/mman.h" comes into play.
 
 Of particular interest is the function mmap, a mnuemonic for "Memory MAP".
-Lets go to "sys/mman.h" file and see waht we can learn about memory mapping.
+Lets go to "sys/mman.h" file and see what we can learn about memory mapping.
 
-But where is it located? I don't know. So I ran `find / -name "mman.h"`
+But where is "sys/mman.h" located? I don't know either!
+Luckily this is a common problem and someone wrote the coreutil "find" to help.
+`find / -name "mman.h"`
 When I first ran this I got a bunch of "permission denied" so I added sudo.
-This returned a bunch of files so I filtered the results using grep.
-The final result was:
+This returns a bunch of files. We can filter these results with grep.
 ```
 sudo find / -name "mman.h" | grep sys/mman.h
 ```
-Which led me to "/usr/include/arm-linux/gnueabihf/sys/mman.h"
+The output on my machine was "/usr/include/arm-linux/gnueabihf/sys/mman.h"
 I'm going to add this to the path for my editor so I can jump to files I include in the header.
-Great! now that that's setup (it takes time) lets look a the file.
+Great! now that that's setup lets look at "sys/mman.h"
 
 
 notice the line
 ```
 #define MAP_FAILED ((void*) -1)
 ```
-This is the value we'll use to see if mmap failed.
+This is the value we'll use to test if mmap failed.
 
 Another declaration that looks important is
 ```
@@ -87,7 +88,6 @@ That may be the call we need to display the changes.
  Lets add that unmap then reboot our systems to make sure all memory is freed.
  `man unmap` and then we know to add `munmap(pfb,fb_size)` to free the mapped memory
  
-
 
 We we tried writing to the address returned from our framebuffer code we would get a segmentation fault.
 This is because we can not write to those memory locations. We need to map to a region we can write to.
